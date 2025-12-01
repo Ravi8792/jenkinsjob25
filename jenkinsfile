@@ -26,12 +26,28 @@ stages {
   }
 }
 
- stage ('DEPLOY') {
-agent {label 'label1'}      
-      steps {
-        echo "This is Deploy stage" 
-          sh 'sleep 5' 
+ stage ('DEPLOY'){
+paralle {
+ stage ('Server 1') {
+                steps {
+        echo "This is Deploy Server 1"
+          sh 'sleep 5'
         }
     }
+         stage ('Server 2') {
+                steps {
+        echo "This is Deploy Server 2"
+          sh 'sleep 5'
+        }
+    }
+         stage ('Server 3') {
+                steps {
+        echo "This is Deploy Server 3"
+          sh 'sleep 5'
+        }
+    }
+
   }
+}
+}
 }
