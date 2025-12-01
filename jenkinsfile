@@ -9,13 +9,23 @@ stages {
           sh 'sleep 5' 
         }
     }
- stage ('TEST') {
-     agent {label 'label1'}
+ stage ('TEST PARALLEL') {
+	parallel {
+	stage (TEST ON CHROME){
       steps {
-        echo "This is Test stage" 
-          sh 'sleep 5' 
+        echo "This is Test on Chrome Browser" 
+          sh 'sleep 5;exit 1' 
         }
     }
+	 stage (TEST ON SAFARI){
+      steps {
+        echo "This is Test on Safari Browser"
+          sh 'sleep 5;exit 1'
+        }
+    }
+  }
+}
+
  stage ('DEPLOY') {
 agent {label 'label1'}      
       steps {
