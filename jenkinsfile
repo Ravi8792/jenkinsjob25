@@ -1,12 +1,19 @@
 pipeline {
-  agent {label 'label1'}
+  agent any 
+	environment {
+	 NAME = 'Ravi'
+	}
 stages {
 
     stage ('BUILD') {
-      agent {label 'label1'}
-      steps {
+	steps {
+	echo "$NAME"
         echo "This is Build stage" 
-          sh 'sleep 5' 
+          sh '''
+		sleep 5
+		echo $NAME
+		exit 0
+	     ''' 
         }
     }
  stage ('TEST PARALLEL') {
