@@ -16,8 +16,8 @@ stages {
 		// echo "Code from ${params.BRANCH} branch"
         echo "This is Build stage" 
           sh '''
-				echo "Deploying to ${params.ENV}"
-		 		echo "Code from ${params.BRANCH} branch"
+				echo "Deploying to ${DEPLOY_ENV}"
+		 		echo "Code from ${DEPLOY_BRANCH} branch"
 				exit 0
 	     	 ''' 
         }
