@@ -1,63 +1,27 @@
 pipeline {
   agent any 
-	environment {
+	// environment {
 	 NAME = 'Ravi'
-	}
-stages {
+	} //
+parameters {
+  string defaultValue: 'TEST', description: 'environment to deploy the application ', name: 'ENV', trim: true
+  choice choices: ['main', 'master'], description: 'environment to deploy the application', name: 'BRANCH'
+}
 
+
+stages {
     stage ('BUILD') {
 	steps {
-	echo "$NAME"
+	// echo "$NAME"
+		echo "Deploying to ${params.ENV}"
+		echo "Code from ${params.BRANCH} branch"
         echo "This is Build stage" 
           sh '''
-		sleep 5
-		echo $NAME
-		exit 0
-	     ''' 
-        }
-    }
- stage ('TEST PARALLEL') {
-	parallel {
-	stage ('TEST ON CHROME') {
-      steps {
-        echo "This is Test on Chrome Browser" 
-          sh '''
 				sleep 5
-			  ''' 
+				// echo $NAME
+				exit 0
+	     	 ''' 
         }
     }
-	 stage ('TEST ON SAFARI') {
-      steps {
-        echo "This is Test on Safari Browser"
-          sh '''
-				sleep 5
-			  '''
-        }
-    }
-  }
-}
- stage ('DEPLOY') {
-parallel {
- stage ('Server 1') {
-                steps {
-        echo "This is Deploy Server 1"
-          sh 'sleep 5'
-        }
-    }
-         stage ('Server 2') {
-                steps {
-        echo "This is Deploy Server 2"
-          sh 'sleep 5'
-        }
-    }
-         stage ('Server 3') {
-                steps {
-        echo "This is Deploy Server 3"
-          sh 'sleep 5'
-        }
-    }
-
-  }
-}
 }
 }
