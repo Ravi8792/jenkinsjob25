@@ -8,15 +8,15 @@ pipeline {
         }
     }
 
-        stage('TEST Parallel') {
+        stage('TEST PARALLEL') {
           parallel {
-            stage('CHROME BUILD') {
-              steps {
+            stage('TEST ON CHROME BUILD') {
+              steps{
             echo 'this is Chrome_Build stage'
             sh 'sleep 5'
               }
             }
-        stage('SAFARI BUILD') {
+        stage('TST ON SAFARI BUILD') {
           steps {
             echo 'this is Safari_build stage'
             sh 'sleep 5'
