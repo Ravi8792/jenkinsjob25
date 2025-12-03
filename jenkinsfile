@@ -1,12 +1,28 @@
 pipeline {
-    agent any
+    agent any 
     stages {
+        parallel {
         stage  ('BUILD') {
         steps {
             echo "this is build stage"
             sh 'sleep 5'
         }
     }
+    stage  ('CHROME BUILD') {
+        steps {
+            echo "this is Chrome_build stage"
+            sh 'sleep 5'
+        }
+    }
+    stage  ('SAFARI BUILD') {
+        steps {
+            echo "this is Safari_build stage"
+            sh 'sleep 5'
+        }
+    }
+    
+    }
+    
     stage  ('TEST') {
         steps {
             echo "this is test stage"
