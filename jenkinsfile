@@ -1,38 +1,34 @@
 pipeline {
-    agent any 
+    agent any
     stages {
-   stage  ('BUILD') {
+    stage('BUILD') {
         steps {
-            echo "this is test stage"
+            echo 'this is test stage'
             sh 'sleep 5'
         }
     }
-    parallel {
-        stage  ('TEST') {
-        steps {
-            echo "this is build stage"
-            sh 'sleep 5'
-        }
-    }
-    stage  ('CHROME BUILD') {
-        steps {
-            echo "this is Chrome_build stage"
-            sh 'sleep 5'
-        }
-    }
-    stage  ('SAFARI BUILD') {
-        steps {
-            echo "this is Safari_build stage"
-            sh 'sleep 5'
-        }
-    }
-    }
-    stage  ('DEPLOY') {
-        steps {
-            echo "this is deploy stage"
-            sh 'sleep 5'
-        }
-    }
-}
 
+        stage('TEST Parallel') {
+          parallel {
+            stage('CHROME BUILD') {
+              steps {
+            echo 'this is Chrome_Build stage'
+            sh 'sleep 5'
+              }
+            }
+        stage('SAFARI BUILD') {
+          steps {
+            echo 'this is Safari_build stage'
+            sh 'sleep 5'
+          }
+        }
+          }
+      stage('DEPLOY') {
+        steps {
+            echo 'this is deploy stage'
+            sh 'sleep 5'
+        }
+      }
+        }
+    }
 }
