@@ -11,24 +11,40 @@ pipeline {
         stage('TEST PARALLEL') {
           parallel {
             stage('TEST ON CHROME BUILD') {
-              steps{
+              steps {
             echo 'this is Chrome_Build stage'
             sh 'sleep 5'
               }
             }
-        stage('TST ON SAFARI BUILD') {
+        stage('TEST ON SAFARI BUILD') {
           steps {
             echo 'this is Safari_build stage'
             sh 'sleep 5'
           }
         }
-      }
-     }
+          }
+        }
       stage('DEPLOY') {
-        steps {
-            echo 'this is deploy stage'
-            sh 'sleep 5'
+        parallel {
+          stage('DEPLOY ON SERVER1') {
+            steps {
+              echo 'this is deploy on Server1'
+              sh 'sleep 5'
+            }
+          }
+          stage('DEPLOY ON SERVER2') {
+            steps {
+              echo 'this is deploy on Server2'
+              sh 'sleep 5'
+            }
+          }
+        stage('DEPLOY ON SERVER3') {
+            steps {
+              echo 'this is deploy on Server3'
+              sh 'sleep 5'
+            }
+        }
         }
       }
-        }
     }
+}
