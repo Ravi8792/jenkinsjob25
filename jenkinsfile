@@ -12,7 +12,7 @@ pipeline {
           parallel {
             stage('TEST ON CHROME BUILD') {
               steps {
-            echo 'this is Chrome_Build stage'
+            echo 'this is Chrome_Build stages'
             sh 'sleep 5'
               }
             }
