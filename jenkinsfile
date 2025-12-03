@@ -1,26 +1,24 @@
 pipeline {
-  agent any 
-parameters {
-  string defaultValue: 'TEST', description: 'environment to deploy the application ', name: 'ENV', trim: true
-  choice choices: ['main', 'master'], description: 'environment to deploy the application', name: 'BRANCH'
-}
-environment {
-DEPLOY_ENV = "$ENV"
-DEPLOY_BRANCH = "$BRANCH"
-}
-
-stages {
-    stage ('BUILD') {
-	steps {
-	 		 echo "Deploying to ${params.ENV}"
-			 echo "Code from ${params.BRANCH} branch"
-        echo "This is Build stage" 
-          sh '''
-				echo "Deploying to ${DEPLOY_ENV}"
-		 		echo "Code from ${DEPLOY_BRANCH} branch"
-				exit 0
-	     	 ''' 
+    agent any
+    stages {
+        stage  ('BUILD') {
+        steps {
+            echo "this is build stage"
+            sh 'sleep 5'
         }
     }
- }
+    stage  ('TEST') {
+        steps {
+            echo "this is test stage"
+            sh 'sleep 5'
+        }
+    }
+    stage  ('DEPLOY') {
+        steps {
+            echo "this is deploy stage"
+            sh 'sleep 5'
+        }
+    }
+}
+
 }
