@@ -25,6 +25,8 @@ pipeline {
                 }
                 stage('TEST ON SAFARI BUILD') {
                     steps {
+                        echo "User selected version is ${params.ENV}"
+                        echo "User selected environment is ${params.TEST}"
                         echo 'this is Safari_build stage'
                         sh 'sleep 5'
                     }
