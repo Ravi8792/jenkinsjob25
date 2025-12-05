@@ -11,7 +11,13 @@ pipeline {
                 echo "User selected version is ${params.ENV}"
                 echo "User selected environment is ${params.TEST}"
                 echo 'this is Bild stage'
-                sh 'sleep 5'
+                /* groovylint-disable-next-line GStringExpressionWithinString */
+                sh '''
+                      sleep 5
+                      echo "Building version ${ENV} for ${TEST} environment"
+                      echo "Build completed successfully."
+                '''
+
             }
         }
 
@@ -20,13 +26,17 @@ pipeline {
                 stage('TEST ON CHROME BUILD') {
                     steps {
                         echo 'this is Chrome_Build stages'
-                        sh 'sleep 5'
+                        echo "User selected version is ${params.ENV}"
+                        echo "User selected environment is ${params.TEST}"
+                        sh '''
+                        sleep 5
+                        echo "Running tests on Chrome for version ${ENV} in ${TEST} environment"
+                        echo "Tests on Chrome completed successfully."
+                        '''
                     }
                 }
                 stage('TEST ON SAFARI BUILD') {
                     steps {
-                        echo "User selected version is ${params.ENV}"
-                        echo "User selected environment is ${params.TEST}"
                         echo 'this is Safari_build stage'
                         sh 'sleep 5'
                     }
@@ -39,7 +49,13 @@ pipeline {
                 stage('DEPLOY ON SERVER1') {
                     steps {
                         echo 'this is deploy on Server1'
-                        sh 'sleep 5'
+                        echo "User selected version is ${params.ENV}"
+                        echo "User selected environment is ${params.TEST}"
+                        sh '''
+                        sleep 5
+                        echo "Deploying version ${ENV} to Server1 in ${TEST} environment"
+                        echo "Deployment to Server1 completed successfully."
+                        '''
                     }
                 }
                 stage('DEPLOY ON SERVER2') {
