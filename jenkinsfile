@@ -4,19 +4,24 @@ pipeline {
         string defaultValue: '1.0.0', description: 'Enter the version number ', name: 'ENV', trim: true
         choice choices: ['DEV', 'QA', 'PROD'], description: 'Select environment ', name: 'TEST'
     }
+    environment {
+                  ENV1 = "123"
+                }
 
     stages {
         stage('BUILD') {
             steps {
                 echo "User selected version is ${params.ENV}"
                 echo "User selected environment is ${params.TEST}"
+                echo "Environment variable ENV1 is set to ${ENV1}"
                 echo 'this is Bild stage'
                 /* groovylint-disable-next-line GStringExpressionWithinString */
                 sh '''
                       sleep 5
                       echo "Building version ${ENV} for ${TEST} environment"
                       echo "Build completed successfully."
-                '''
+                
+                 '''
 
             }
         }
