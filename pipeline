@@ -1,0 +1,26 @@
+pipeline{
+    agent any
+    stages {
+        stage (BUILD")
+        {
+            steps {
+                echo "this is build stage"
+            sh 'slepp 3'
+            }
+        }
+        stage ("TEST")
+        {
+            steps {
+                echo "this is test stage"
+            sh 'slepp 3'
+            }
+        }
+        stage ("DEPLOY")
+        {
+            steps {
+                echo "this is deploy stage"
+            sh 'slepp 3'
+            }
+        }
+    }
+}
