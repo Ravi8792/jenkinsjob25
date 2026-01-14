@@ -1,81 +1,12 @@
 pipeline {
-    agent any
-    parameters {
-        string defaultValue: '1.0.0', description: 'Enter the version number ', name: 'ENV', trim: true
-        choice choices: ['DEV', 'QA', 'PROD'], description: 'Select environment ', name: 'TEST'
+  agent {
+    docker { image 'node:16-alpine' }
+  }
+  stages {
+    stage('Test') {
+      steps {
+        sh 'node --version'
+      }
     }
-    environment {
-                  ENV1 = "123"
-                }
-
-    stages {
-        stage('BUILD') {
-            steps {
-                echo "User selected version is ${params.ENV}"
-                echo "User selected environment is ${params.TEST}"
-                echo "Environment variable ENV1 is set to ${ENV1}"
-                echo 'this is Bild stage'
-                /* groovylint-disable-next-line GStringExpressionWithinString */
-                sh '''
-                      sleep 5
-                      echo "Building version ${ENV} for ${TEST} environment"
-                      echo "Build completed successfully."
-                
-                 '''
-
-            }
-        }
-
-        stage('TEST PARALLEL') {
-            parallel {
-                stage('TEST ON CHROME BUILD') {
-                    steps {
-                        echo 'this is Chrome_Build stages'
-                        echo "User selected version is ${params.ENV}"
-                        echo "User selected environment is ${params.TEST}"
-                        sh '''
-                        sleep 5
-                        echo "Running tests on Chrome for version ${ENV} in ${TEST} environment"
-                        echo "Tests on Chrome completed successfully."
-                        '''
-                    }
-                }
-                stage('TEST ON SAFARI BUILD') {
-                    steps {
-                        echo 'this is Safari_build stage'
-                        sh 'sleep 5'
-                    }
-                }
-            }
-        }
-
-        stage('DEPLOY') {
-            parallel {
-                stage('DEPLOY ON SERVER1') {
-                    steps {
-                        echo 'this is deploy on Server1'
-                        echo "User selected version is ${params.ENV}"
-                        echo "User selected environment is ${params.TEST}"
-                        sh '''
-                        sleep 5
-                        echo "Deploying version ${ENV} to Server1 in ${TEST} environment"
-                        echo "Deployment to Server1 completed successfully."
-                        '''
-                    }
-                }
-                stage('DEPLOY ON SERVER2') {
-                    steps {
-                        echo 'this is deploy on Server2'
-                        sh 'sleep 5'
-                    }
-                }
-                stage('DEPLOY ON SERVER3') {
-                    steps {
-                        echo 'this is deploy on Server3'
-                        sh 'sleep 5'
-                    }
-                }
-            }
-        }
-    }
+  }
 }
